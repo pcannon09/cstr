@@ -10,17 +10,17 @@
 #define CSTR_DEFAULT_C_STD			201112L
 
 // Versioning
-#define CSTR_VERSION_MAJOR            1
-#define CSTR_VERSION_MINOR            0
+#define CSTR_VERSION_MAJOR            0
+#define CSTR_VERSION_MINOR            1
 #define CSTR_VERSION_PATCH            0
 
-#define CSTR_VERSION_STD              20251017
+#define CSTR_VERSION_STD              20251016
 
 // Version states:
 // * dev
 // * beta
 // * build
-#define CSTR_VERSION_STATE          "build"
+#define CSTR_VERSION_STATE          "beta"
 
 #define CSTR_VERSION                ((CSTR_VERSION_MAJOR<<16)|(CSTR_VERSION_MINOR<<8)|(CSTR_VERSION_PATCH)|(CSTR_VERSION_STATE << 24))
 

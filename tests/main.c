@@ -150,6 +150,7 @@ int main(void)
 
 		cstr_set(&str, "Random data...");
 
+#ifdef CSTR_ENABLE_GET_CONST_RETURN
 		printf("TMP DATA: %s\n", CSTR_GET_CONST_RETURN(str, cstr_fromInt, 12345).data);
 		printf("CURRENT DATA: %s\n", str.data);
 
@@ -158,6 +159,10 @@ int main(void)
 		printf("DATA: %s\n", str.data);
 
 		cstr_destroy(&str);
+#else
+		printf("Cannot do TEST 8\n");
+# 		warning "Cannot do TEST 8"
+#endif // CSTR_ENABLE_GET_CONST_RETURN
 	}
 
 	return 0;
