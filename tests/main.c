@@ -146,11 +146,11 @@ int main(void)
 	printf("TESTING 8\n");
 
 	{
+#ifdef CSTR_ENABLE_GET_CONST_RETURN
 		CSTR str = cstr_init();
 
 		cstr_set(&str, "Random data...");
 
-#ifdef CSTR_ENABLE_GET_CONST_RETURN
 		printf("TMP DATA: %s\n", CSTR_GET_CONST_RETURN(str, cstr_fromInt, 12345).data);
 		printf("CURRENT DATA: %s\n", str.data);
 
