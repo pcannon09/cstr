@@ -44,6 +44,24 @@ if [ "$1" == "ungen" ]; then
     echo -e "${BOLD}${CYAN}[ NOTE ] Execute this file without the \`ungen\` flag to generate all files"
     exit
 
+elif [ "$1" == "recommended" ]; then
+	readonly TO_CAT=".private/dev/compilation.json"
+	
+	printf "${BOLD}${BRIGHT_GREEN}[ CAT ] Setting value of \`$TO_CAT\` directory${RESET} "
+
+	cat > .private/dev/compilation.json <<'EOF'
+{
+  "cores": 4,
+  "enableBackup": "NO",
+  "macros": [
+    "CSTR_ENABLE_GET_CONST_RETURN",
+    "CSTR_ENABLE_GET_RETURN"
+  ]
+}
+EOF
+
+	echo -e "${BOLD}${BRIGHT_GREEN}[ OK ]${RESET}"
+
 elif [ "$1" == "doxygen" ]; then
 	doxygen Doxyfile
 fi
