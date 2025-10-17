@@ -61,9 +61,13 @@ elif [ "$1" == "recommended" ]; then
 EOF
 
 	echo -e "${BOLD}${BRIGHT_GREEN}[ OK ]${RESET}"
+	
+	exit
 
 elif [ "$1" == "doxygen" ]; then
 	doxygen Doxyfile
+
+	exit
 fi
 
 for dir in "${DIR_GEN[@]}"; do
