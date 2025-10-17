@@ -1,3 +1,5 @@
+// main.c
+
 #include <stdio.h> 
 #include <string.h>
 #include <stdarg.h>
@@ -163,6 +165,17 @@ int main(void)
 		printf("Cannot do TEST 8\n");
 # 		warning "Cannot do TEST 8"
 #endif // CSTR_ENABLE_GET_CONST_RETURN
+	}
+
+	printf("TESTING 9\n");
+
+	{
+		CSTR str = cstr_init();
+		cstr_set(&str, "Hello world"); // NOTE: Comment OR Uncomment this line for more testing
+
+		printf("Is empty? %s\n", cstr_bool(cstr_empty(&str)));
+
+		cstr_destroy(&str);
 	}
 
 	return 0;

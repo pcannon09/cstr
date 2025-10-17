@@ -1,10 +1,5 @@
 // cstr.c
 
-/**
- * Other macro definitions
- * CSTR_DYNAMIC_CAPACITY
- */
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -477,6 +472,16 @@ bool cstr_comp(const CSTR _s1, const CSTR _s2)
 {
 	if (strcmp(_s1.data, _s2.data) == 0) return true;
 	
+	return false;
+}
+
+bool cstr_empty(const CSTR *_str)
+{
+	if (!_str->initialized) 				return true;
+	if (!_str)  							return true;
+	if (!_str->data) 						return true;
+	if (_str->len <= 0) 					return true;
+
 	return false;
 }
 
