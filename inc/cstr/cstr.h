@@ -87,13 +87,13 @@ const char *cstr_bool(const bool _bool);
 # 	endif
 
 # 	ifdef CSTR_ENABLE_GET_CONST_RETURN
-#define CSTR_GET_CONST_RETURN(_str, _call, ...) \
-    ({ \
-        CSTR tmpS; \
-        cstr_initCopy(&tmpS, _str CSTR_CONST_RETURN_PTR_METHOD data); \
-        _call(&tmpS, __VA_ARGS__); \
-        tmpS; \
-    })
+#       define CSTR_GET_CONST_RETURN(_str, _call, ...) \
+        ({ \
+            CSTR tmpS; \
+            cstr_initCopy(&tmpS, _str CSTR_CONST_RETURN_PTR_METHOD data); \
+            _call(&tmpS, __VA_ARGS__); \
+            tmpS; \
+        })
 # 	else
 # 		define CSTR_GET_CONST_RETURN(_str, _call, ...)
 # 	endif // defined(CSTR_ENABLE_GET_CONST_RETURN)
