@@ -5,6 +5,15 @@
 
 ---
 
+## Requirements
+### Supported Compilers
+
+**GCC** >= 7.0
+
+**Clang** >= 6.0
+
+All compilers **must support C11** or higher.
+
 ## Features
 
 * **Dynamic String Management**
