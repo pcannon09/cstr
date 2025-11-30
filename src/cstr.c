@@ -338,34 +338,45 @@ int cstr_replace(CSTR *_str, const char *_old, const char *_new)
 int cstr_replaceAll(CSTR *_str, const char *_old, const char *_new)
 {
     if (!_str || !_old || !_new) return CSTR_FAIL;
-    if (_old[0] == '\0') return CSTR_FAIL; // Avoid infinite loop
+    if (_old[0] == '\0') return CSTR_FAIL; // avoid infinite loop
 
-    size_t pos = 0;
     size_t oldLen = strlen(_old);
-    size_t newLen = strlen(_new);
 
-    while (pos < _str->len)
+    CSTR original;
+    cstr_initCopy(&original, _str->data);
+
+    CSTR result = cstr_init();
+    size_t pos = 0;
+
+    while (1)
     {
-        size_t found = cstr_findFrom(_str, _old, pos);
+        size_t found = cstr_findFrom(&original, _old, pos);
 
-        if (found == CSTR_NPOS) break; // No more matches
+        if (found == CSTR_NPOS) break;
 
-        CSTR tail;
+        // Copy everything to `found`
+        char saved = original.data[found];
+        original.data[found] = '\0';
 
-		if (found + oldLen < _str->len) cstr_initCopy(&tail, _str->data + found + oldLen);
-		else cstr_initCopy(&tail, "");
+        cstr_add(&result, original.data + pos);
 
-        // Replace the found substring with the new one
-        _str->data[found] = '\0';		// Trunc the string at the found position
-        _str->len = found;
+        original.data[found] = saved;
 
-        cstr_add(_str, _new);			// Add the replacement
-        cstr_add(_str, tail.data);		// Append the remaining tail
+        // Add replacement
+        cstr_add(&result, _new);
 
-        cstr_destroy(&tail);
-
-        pos = found + newLen;			// Move past the replacement string
+        pos = found + oldLen;
     }
+
+    // Add the rest of the original string
+    if (pos < original.len)
+        cstr_add(&result, original.data + pos);
+
+    // Replace original CSTR with result
+    cstr_destroy(_str);
+    *_str = result;
+
+    cstr_destroy(&original);
 
     return CSTR_SUCCESS;
 }
