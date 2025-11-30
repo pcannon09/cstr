@@ -6,7 +6,7 @@
 
 #include "../inc/cstr/CSTRpredefines.h"
 
-#if !CSTR_DEV
+#if CSTR_DEV == 1
 # 	include "../inc/cstr/cstr.h"
 #else 
 # 	include <cstr/cstr.h>

@@ -32,7 +32,7 @@
 #define CSTR_TOSTRING(x) CSTR_STRINGIFY(x)
 
 #ifndef CSTR_DEV
-#   define CSTR_DEV true
+#   define CSTR_DEV 1
 #endif
 
 #if _MSC_VER

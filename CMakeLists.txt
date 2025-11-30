@@ -47,7 +47,7 @@ set(DEV_COMPILE_FLAGS
     -Wunused
     -Wall
     -Wno-range-loop-analysis
-    -DCSTR_DEV=true
+    -DCSTR_DEV=1
 )
 
 set(DEV_LINK_FLAGS
@@ -59,7 +59,7 @@ set(DEV_LINK_FLAGS
 set(PROD_COMPILE_FLAGS
     -O3
     -DNDEBUG
-    -DCSTR_DEV=false
+    -DCSTR_DEV=0
 )
 
 set(PROD_LINK_FLAGS
