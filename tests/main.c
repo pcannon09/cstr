@@ -197,7 +197,7 @@ int main(void)
 
 		cstr_set(&str, "Hey, how are you pcannon09? Oh, Hey, how are you Paul?");
 
-		printf("Checking how many 'o's are there in; %s\n", str.data);
+		printf("Checking how many 'Hey's are there in; %s\n", str.data);
 
 		int counts = cstr_count(&str, "Hey");
 
