@@ -11,10 +11,10 @@
 
 // Versioning
 #define CSTR_VERSION_MAJOR            1
-#define CSTR_VERSION_MINOR            0
-#define CSTR_VERSION_PATCH            1
+#define CSTR_VERSION_MINOR            1
+#define CSTR_VERSION_PATCH            0
 
-#define CSTR_VERSION_STD              20251017
+#define CSTR_VERSION_STD              20251202
 
 // Version states:
 // * dev
