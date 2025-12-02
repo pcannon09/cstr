@@ -15,6 +15,9 @@ int __cstr_updateCap(CSTR *_str)
 {
 	if (!_str) return CSTR_FAIL;
 
+	if (_str->forceCap)
+		return CSTR_FAIL;
+
 	// Set the dynamic capacity in CSTR type
 #ifdef CSTR_DYNAMIC_CAPACITY
 	_str->cap = _str->len + 1;
@@ -38,13 +41,20 @@ static int __cstr_setFormat(CSTR *_str, const char *_fmt, ...)
 	if (_str->forceCap && (size_t)(needed + 1) > _str->cap)
 		return CSTR_FORCECAP_LIMIT;
 
-	// forceCap is now `false`
+	// forceCap is `false` when here
 	char *newData = realloc(_str->data, needed + 1);
 	
-	if (!newData) return CSTR_FAIL;
+	if (!newData)
+	{
+		va_end(args);
+
+		return CSTR_FAIL;
+	}
 
 	_str->data = newData;
 	_str->cap = needed + 1;
+
+	va_end(args);
 
 	// Format
 	va_start(args, _fmt);
@@ -165,8 +175,6 @@ int cstr_add(CSTR *_str, const char *_suffix)
 
     return CSTR_SUCCESS;
 }
-
-
 
 int cstr_clear(CSTR *_str)
 {
@@ -430,6 +438,39 @@ size_t cstr_find(const CSTR *_str, const char *_find)
 	if (!pos) return CSTR_NPOS;
 
 	return pos - _str->data;
+}
+
+size_t cstr_countChar(const CSTR *_str, const char ch)
+{
+	if (!_str || !_str->initialized)
+		return 0;
+
+	size_t foundChs = 0;
+
+	for (size_t i = 0 ; i < _str->len ; i++)
+	{
+		if (_str->data[i] == ch) foundChs++;
+	}
+
+	return foundChs;
+}
+
+size_t cstr_count(const CSTR *_str, const char *ch)
+{
+    if (!_str || !_str->data || !ch || !*ch)
+        return 0;
+
+    size_t count = 0;
+    const char *p = _str->data;
+    size_t len = strlen(ch);
+
+    while ((p = strstr(p, ch)) != NULL)
+    {
+        count++;
+        p += len;
+    }
+
+    return count;
 }
 
 size_t cstr_findFrom(const CSTR *_str, const char *_find, size_t pos)

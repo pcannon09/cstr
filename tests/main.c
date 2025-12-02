@@ -1,9 +1,5 @@
 // main.c
 
-#include <stdio.h> 
-#include <string.h>
-#include <stdarg.h>
-
 #include "../inc/cstr/CSTRpredefines.h"
 
 #if CSTR_DEV == 1
@@ -11,6 +7,10 @@
 #else 
 # 	include <cstr/cstr.h>
 #endif // !defined(CSTR_DEV)
+
+#include <stdio.h> 
+#include <string.h>
+#include <stdarg.h>
 
 int main(void)
 {
@@ -176,6 +176,35 @@ int main(void)
 		printf("Is empty? %s\n", cstr_bool(cstr_empty(&str)));
 
 		cstr_destroy(&str);
+	}
+
+	{
+		CSTR str = cstr_init();
+
+		cstr_set(&str, "The quick brown fox jumps over the lazy dog");
+
+		printf("Checking how many 'o's are there in; %s\n", str.data);
+
+		int counts = cstr_countChar(&str, 'o');
+
+		printf("There are: %i\n", counts);
+
+		cstr_destroy(&str);
+	}
+
+	{
+		CSTR str = cstr_init();
+
+		cstr_set(&str, "Hey, how are you pcannon09? Oh, Hey, how are you Paul?");
+
+		printf("Checking how many 'o's are there in; %s\n", str.data);
+
+		int counts = cstr_count(&str, "Hey");
+
+		printf("There are: %i\n", counts);
+
+		cstr_destroy(&str);
+
 	}
 
 	return 0;

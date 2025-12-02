@@ -10,6 +10,22 @@
 
 #if __STDC_VERSION__ >= CSTR_DEFAULT_C_STD
 
+#ifdef CSTR_sys_strdup
+# 	undef CSTR_sys_strdup
+#endif
+
+#if defined(CSTR_OS_WIN32)
+# 	include <string.h>
+# 	define CSTR_sys_strdup 		_strdup
+#else
+# 	ifdef _POSIX_C_SOURCE 
+# 		undef _POSIX_C_SOURCE 
+# 	endif
+# 	define _POSIX_C_SOURCE 200809L
+# 	include <string.h>
+# 	define CSTR_sys_strdup 		strdup
+#endif // defined(CSTR_OS_WIN32)
+
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -279,6 +295,37 @@ size_t cstr_find(const CSTR *_str, const char *_find);
  * @return Index of match, or CSTR_NPOS if not found
  */
 size_t cstr_findFrom(const CSTR *_str, const char *_find, size_t pos);
+
+/**
+ * @brief Count occurrences of a single character within a CSTR
+ *
+ * Iterates through the string and counts how many times the specified
+ * character appears in the `.data` buffer.
+ *
+ * @param _str Pointer to the CSTR to inspect
+ * @param ch Character to count
+ *
+ * @return Number of occurrences of `ch` in the string
+ *         Returns 0 if `_str` is NULL or not initialized
+ *
+ * @note This function performs a linear scan across all characters.
+ */
+size_t cstr_countChar(const CSTR *_str, const char ch);
+
+/**
+ * @brief Count occurrences of a substring within a CSTR
+ *
+ * Searches for non-overlapping occurrences of a null-terminated substring
+ * inside the CSTR’s `.data` buffer using strstr. Each found instance advances
+ * the scan position by the length of the substring, preventing overlapping matches.
+ *
+ * @param _str Pointer to the CSTR to inspect
+ * @param ch   Null-terminated substring to count
+ *
+ * @return Number of non-overlapping occurrences found
+ *         Returns 0 if parameters are invalid (`_str`, `.data`, `ch`, or `*ch`)
+ */
+size_t cstr_count(const CSTR *_str, const char *ch);
 
 /**
  * @brief Check if a CSTR begins with the given prefix
