@@ -35,13 +35,8 @@
 #   define CSTR_DEV 1
 #endif
 
-#if _MSC_VER
-#	error "Currently not available for MSVC compilers"
-#endif
-
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN32)
 #	define CSTR_OS_WIN32
-#	warning "No full support for Windows"
 #elif defined(__APPLE__) || defined(__MACH__) || defined(Macintosh)
 #	define CSTR_OS_MACOS
 #elif defined(__linux__) || defined(__unix) || defined(__unix__)
