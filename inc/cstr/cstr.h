@@ -4,11 +4,21 @@
 
 #include "CSTRpredefines.h"
 
+#ifdef __cplusplus
+# 	define __FSI_DIRUTILS_CSTR_CPP_OPEN 		extern "C" {
+# 	define __FSI_DIRUTILS_CSTR_CPP_CLOSE 		}
+#else
+# 	define __FSI_DIRUTILS_CSTR_CPP_OPEN
+# 	define __FSI_DIRUTILS_CSTR_CPP_CLOSE
+#endif // __cplusplus
+
+__FSI_DIRUTILS_CSTR_CPP_OPEN
+
 #ifdef __CSTR_OK
 # 	undef __CSTR_OK
 #endif // defined(__CSTR_OK)
 
-#if __STDC_VERSION__ >= CSTR_DEFAULT_C_STD
+#if __STDC_VERSION__ >= CSTR_DEFAULT_C_STD || defined(__cplusplus)
 
 #ifdef CSTR_sys_strdup
 # 	undef CSTR_sys_strdup
@@ -402,6 +412,8 @@ bool cstr_empty(const CSTR *_str);
 # 		define CSTR_GET_CONST_RETURN(_str, _call, ...)
 # 	endif // defined(CSTR_ENABLE_GET_CONST_RETURN)
 #endif // __CSTR_OK
+
+__FSI_DIRUTILS_CSTR_CPP_CLOSE
 
 #else
 # 	error "Must use C11 as the minimum standard"
